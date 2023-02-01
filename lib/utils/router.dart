@@ -9,7 +9,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.profile:
         return MaterialPageRoute(
-          builder: (context) => const ProfilePage(),
+          builder: (context) => ProfilePage(),
         );
 
       default:

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class ProfileInfoListItem extends StatelessWidget {
   final String label;
-  final String value;
+  final String initialValue;
   final bool isObscured;
 
   const ProfileInfoListItem({
     Key? key,
     required this.label,
-    required this.value,
+    required this.initialValue,
     this.isObscured = false,
   }) : super(key: key);
 
@@ -17,7 +17,7 @@ class ProfileInfoListItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Colors.grey.shade400),
+          bottom: BorderSide(color: Colors.grey.shade300),
         ),
       ),
       margin: const EdgeInsets.only(
@@ -34,12 +34,15 @@ class ProfileInfoListItem extends StatelessWidget {
             label.toUpperCase(),
             style: Theme.of(context).textTheme.labelMedium,
           ),
-          const SizedBox(height: 16),
-          Text(
-            value,
+          TextFormField(
+            initialValue: initialValue,
+            obscureText: isObscured,
             style: Theme.of(context).textTheme.titleLarge,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(vertical: 16),
+            ),
           ),
-          const SizedBox(height: 16),
         ],
       ),
     );
