@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../features/error/presentation/error_page.dart';
+import '../features/profile/bloc/profile_bloc.dart';
 import '../features/profile/presentation/profile_page.dart';
 import 'routes.dart';
 
@@ -9,7 +11,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.profile:
         return MaterialPageRoute(
-          builder: (context) => ProfilePage(),
+          builder: (_) => BlocProvider(
+            create: (_) => ProfileBloc(),
+            child: const ProfilePage(),
+          ),
         );
 
       default:

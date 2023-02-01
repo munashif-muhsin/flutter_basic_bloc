@@ -38,6 +38,7 @@ class ProfileHeader extends StatelessWidget {
         Positioned(
           bottom: 0,
           left: 16,
+          right: 16,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -54,27 +55,32 @@ class ProfileHeader extends StatelessWidget {
                     imageUrl,
                     fit: BoxFit.cover,
                     width: 120,
+                    height: 120,
                   ),
                 ),
               ),
               const SizedBox(width: 16),
 
               // Profile info
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      "Registered on: ${format.format(registeredDate)}",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        "Registered on: ${format.format(registeredDate)}",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],

@@ -1,51 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'components/profile_header.dart';
-import 'components/profile_info_list_item.dart';
+import '../bloc/profile_bloc.dart';
+import 'components/profile_error_view.dart';
+import 'components/profile_loaded_view.dart';
 
-class ProfilePage extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
-  ProfilePage({super.key});
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    BlocProvider.of<ProfileBloc>(context).add(InitializeProfile());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(children: [
-            // Header
-            ProfileHeader(
-              imageUrl: "https://randomuser.me/api/portraits/thumb/men/52.jpg",
-              name: "Munashif Muhsin",
-              registeredDate: DateTime.now(),
-            ),
+      body: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileError) {
+            return const ProfileErrorView();
+          }
 
-            // Info Items
-            ProfileInfoListItem(
-              label: "Your email",
-              initialValue: "muhsin@email.com",
-            ),
-            ProfileInfoListItem(
-              label: "Your password",
-              initialValue: "muhsin@email.com",
-              isObscured: true,
-            ),
-            ProfileInfoListItem(
-              label: "Your phone",
-              initialValue: "+911234567890",
-            ),
-            ProfileInfoListItem(
-              label: "city, state",
-              initialValue: "San Francisco, CA",
-            ),
-            ProfileInfoListItem(
-              label: "country",
-              initialValue: "USA",
-            ),
-          ]),
-        ),
+          if (state is ProfileLoaded) {
+            return ProfileLoadedView();
+          }
+
+          return const Center(
+            child: CircularProgressIndicator.adaptive(),
+          );
+        },
       ),
     );
   }
