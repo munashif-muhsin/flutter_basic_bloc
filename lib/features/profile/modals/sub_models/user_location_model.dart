@@ -19,6 +19,9 @@ class Location {
   final Coordinates coordinates;
   final Timezone timezone;
 
+  String get address =>
+      '${street.name}, $city, $state, $country, PO: $postcode';
+
   factory Location.fromJson(Map<String, dynamic> json) => Location(
         street: Street.fromJson(json["street"]),
         city: json["city"],

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/presentation/custom_date_picker.dart';
+import '../../../core/presentation/custom_text_field.dart';
 import '../../bloc/profile_bloc.dart';
 import 'profile_header.dart';
-import 'profile_info_list_item.dart';
 
 class ProfileLoadedView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -29,25 +30,38 @@ class ProfileLoadedView extends StatelessWidget {
           ),
 
           // Info Items
-          ProfileInfoListItem(
+          CustomTextField(
             label: "Your email",
             initialValue: state.user.email,
           ),
-          ProfileInfoListItem(
+          CustomTextField(
             label: "Your password",
             initialValue: state.user.loginInfo.password,
             isObscured: true,
           ),
-          ProfileInfoListItem(
+          CustomDatePicker(
+            label: "Date of birth",
+            initialValue: state.user.dob.date,
+          ),
+          CustomTextField(
+            label: "Gender",
+            initialValue: state.user.gender.toUpperCase(),
+          ),
+          CustomTextField(
             label: "Your phone",
             initialValue: state.user.phone,
           ),
-          ProfileInfoListItem(
+          CustomTextField(
+            label: "Address",
+            initialValue: state.user.location.address,
+            maxLines: 3,
+          ),
+          CustomTextField(
             label: "city, state",
             initialValue:
                 "${state.user.location.city}, ${state.user.location.state}",
           ),
-          ProfileInfoListItem(
+          CustomTextField(
             label: "country",
             initialValue: state.user.location.country,
           ),
